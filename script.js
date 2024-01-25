@@ -1,3 +1,6 @@
+
+
+showNotes();
 // below function is to store the title and note to local storage when button is cliked
 document.getElementById('addnote').addEventListener('click', function() {
     let title = document.getElementById('title').value;
@@ -109,5 +112,21 @@ function deleteAllNotes(){
 
 }
 
+let cancelButton = document.getElementById("title-close-btn");
+let title = document.getElementById("title");
 
-showNotes();
+title.addEventListener('input', () => {
+
+    if (title.value !== '') {
+        cancelButton.style.display = 'block'
+    }
+    else{
+        cancelButton.style.display = 'none'
+    }
+});
+
+cancelButton.addEventListener('click', () => {
+    title.value = '';
+    cancelButton.style.display ='none';
+});
+
