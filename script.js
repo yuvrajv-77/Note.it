@@ -33,8 +33,13 @@ document.getElementById('addnote').addEventListener('click', function() {
     document.getElementById('title').value = "";
     document.getElementById('enternote').value = "";
 
-    successAdded();
-
+    // successAdded();
+    let successAdded = document.getElementById('successAdded')
+    successAdded.innerHTML= `
+    <div class="alert alert-success border py-1 m-0" role="alert">
+    Note Added To local storage !
+    </div>`
+    setTimeout(() => successAdded.innerHTML='',2300)
     showNotes();    // necessary to call this function in click event function bcoz after successfully adding the note the all notes must be shown immediately below
 });
 
@@ -66,7 +71,8 @@ function showNotes() {      // it read the local storage, retrive notes and show
           <p class="card-text">${element.note}</p>
           <div class="text-end">
             <a href="#" class="btn btn-danger text-center" id='${index}' onclick="deleteNote(this.id)">
-            <i class="fi fi-rr-trash "></i></a>
+                <i class="fi fi-rr-trash "></i>
+            </a>
           </div>
         </div>
     </div>
@@ -79,18 +85,18 @@ function showNotes() {      // it read the local storage, retrive notes and show
     if (notesObj.length != 0) {     // if the length of notesObj is not empty means there are something to show then
         notesElm.innerHTML = HTML;      // insert the code of HTML variable
     } else {             
-        notesElm.innerHTML = `Kuchh nahi hai yaha 'Add Note' pe click karo note bnao`;
+        notesElm.innerHTML = `<div style ="color: grey;">Kuchh nahi hai yaha Note Create Kro</div>`;
     }
 }
 
-const successAdded = () => {
-    let successAdded = document.getElementById('successAdded')
-    successAdded.innerHTML= `
-    <div class="alert alert-success border py-1 m-0" role="alert">
-    Note Added To local storage !
-    </div>`
-    setTimeout(() => successAdded.innerHTML='',2300)
-}
+// const successAdded = () => {
+//     // let successAdded = document.getElementById('successAdded')
+//     // successAdded.innerHTML= `
+//     // <div class="alert alert-success border py-1 m-0" role="alert">
+//     // Note Added To local storage !
+//     // </div>`
+//     // setTimeout(() => successAdded.innerHTML='',2300)
+// }
 
 function deleteNote(index) {
     let notesObj = JSON.parse(localStorage.getItem('localnotes'));
@@ -99,6 +105,14 @@ function deleteNote(index) {
     showNotes();
 }
 
+function confirmDelete(){
+    let text = "Sare Notes Delete Hojaega local Storage se";
+    if (confirm(text) == true){
+        deleteAllNotes()
+    }else{
+        return;
+    }
+}
 
 function deleteAllNotes(){
     localStorage.removeItem('localnotes');

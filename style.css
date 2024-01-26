@@ -3,3 +3,15 @@
     right:5px;
     display: none;
 }
+*{
+    font-family: 'Poppins', sans-serif;
+}
+.bottom_bar{
+    display: none;
+}
+
+@media screen and (max-width: 992px){
+    .bottom_bar{
+        display: flex;
+    }
+}
